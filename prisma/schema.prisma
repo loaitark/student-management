@@ -1,0 +1,85 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+ id   Int   @id @default(autoincrement())
+ name String?  
+ email String @unique
+ password String
+ role String? 
+ phone String?
+ passwordChanegedAt DateTime?
+ passwordRestCode String?
+ passwordRestExp DateTime?
+ passwordRestVerified Boolean?
+ Courses Course[]
+ grade Grades[]
+}
+
+model Course {
+  id Int @id @default(autoincrement())
+  name String
+  description String
+  duration Int
+  assignments String
+  content String
+  fullMarks Int?
+  Users User[]
+  Tasks Task[]
+  Schedule Schedule[]
+  grade Grades[]
+}
+
+model Task {
+  id Int @id @default(autoincrement())
+  courseId Int
+  title String
+  content String
+  description String
+  points Int
+  Courses Course @relation(fields: [courseId],references: [id])
+}
+
+model Schedule {
+  id Int @id @default(autoincrement())
+  courseId Int
+  classLevel Int
+  Section Int
+  duration Int
+  day Day
+  start Int
+  end Int
+  Courses Course @relation(fields: [courseId],references: [id])
+}
+
+enum Day{
+    Sat
+    Sun
+    Mon
+    Tue
+    Wed
+    Thu
+    Fri
+  }
+
+
+model Grades {
+id   Int   @id @default(autoincrement())
+userId Int
+Course Course @relation(fields: [courseId],references: [id])
+courseId Int 
+points Int
+Users User @relation(fields: [userId],references: [id])
+@@unique([userId,courseId])
+
+}

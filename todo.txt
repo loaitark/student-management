@@ -1,0 +1,26 @@
+User schema 
+user servecis  
+-SignUp 
+-login
+-forget (verfiy,send verify ,change pass) 
+-verfiy email (verfiy email , resend verfiy code)
+
+user route
+
+schedule schema
+schedule servecis
+-CRUD
+-GET MY schedule
+schedule route
+
+marks schema
+marks servecis
+-CRUD
+-GET MY marks
+marks route
+
+tasks schema
+tasks servecis
+-CRUD
+-GET MY tasks
+tasks route
